@@ -305,7 +305,7 @@ const UI = {
   },
 
   updateCafe: function(totalUpgrades, newestUpgrade) {
-    this.cafeItems.innerHTML = '';
+    this.cafeItems.replaceChildren();
     const visibleCount = Math.min(totalUpgrades, CAFE_UPGRADES.length);
 
     for (let index = 0; index < visibleCount; index++) {
@@ -313,17 +313,28 @@ const UI = {
       const upgrade = CAFE_UPGRADES[index];
       item.className = `cafe-item cafe-item-${index + 1}`;
       item.title = upgrade.name;
+      item.setAttribute('aria-label', upgrade.name);
 
       if (upgrade.image) {
         const image = document.createElement('img');
-        image.src = upgrade.image;
+        image.src = new URL(upgrade.image, document.baseURI).href;
         image.alt = upgrade.name;
+        image.addEventListener('error', () => {
+          image.remove();
+          item.textContent = upgrade.icon;
+          item.classList.add('uses-icon');
+        }, { once: true });
         item.appendChild(image);
       } else {
         item.textContent = upgrade.icon;
+        item.classList.add('uses-icon');
       }
 
       this.cafeItems.appendChild(item);
+    }
+
+    if (newestUpgrade && this.cafeItems.lastElementChild) {
+      this.cafeItems.lastElementChild.classList.add('is-new');
     }
 
     let level = 'Tiny cafe';

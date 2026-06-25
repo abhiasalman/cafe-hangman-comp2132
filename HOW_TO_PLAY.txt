@@ -1,0 +1,6 @@
+HOW TO PLAY CAFE HANGMAN ON MAC
+
+1. Extract the ZIP completely.
+2. Open the extracted Cafe-Hangman-COMP2132 folder.
+3. Right-click the index.html file and click "Open with Five Server".
+4. The game opens automatically in your browser.

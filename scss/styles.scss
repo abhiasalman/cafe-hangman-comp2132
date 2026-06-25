@@ -487,27 +487,34 @@ body {
   position: absolute; left: 10px; bottom: 19px; z-index: 4; width: 124px; height: 15px;
   border: 3px solid #74483d; border-radius: 3px; background: #be805e;
 }
+.cafe-items {
+  z-index: 7;
+  overflow: visible;
+  pointer-events: none;
+}
 .cafe-item {
-  position: absolute; z-index: 8; display: grid; width: 34px; height: 34px; place-items: center;
-  border-radius: 50%; background: rgba(255,248,233,.92); font-size: 22px;
-  filter: drop-shadow(0 3px 2px rgba(90,58,50,.22));
+  position: absolute; z-index: 8; display: grid; width: 44px; height: 44px; place-items: center;
+  border: 2px solid rgba(116,72,61,.28); border-radius: 50%; background: rgba(255,248,233,.96); font-size: 27px;
+  filter: drop-shadow(0 4px 3px rgba(90,58,50,.3));
   animation: itemArrive .55s cubic-bezier(.2,.9,.3,1.35) both;
 
   img {
-    width: 30px;
-    height: 30px;
+    display: block;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
   }
 }
-.cafe-item-1 { left: 8px; bottom: 2px; } .cafe-item-2 { left: 49px; bottom: 29px; }
-.cafe-item-3 { left: 89px; bottom: 29px; } .cafe-item-4 { right: 2px; bottom: -43px; }
-.cafe-item-5 { left: 16px; bottom: 29px; } .cafe-item-6 { left: 113px; top: 47px; }
-.cafe-item-7 { left: 72px; bottom: 29px; } .cafe-item-8 { left: -28px; bottom: -45px; }
-.cafe-item-9 { left: 38px; bottom: 29px; } .cafe-item-10 { left: 10px; top: 50px; }
-.cafe-item-11 { left: 102px; bottom: 29px; } .cafe-item-12 { right: 4px; top: 43px; }
-.cafe-item-13 { left: 1px; bottom: 29px; } .cafe-item-14 { right: -25px; top: -55px; }
-.cafe-item-15 { right: -17px; bottom: -42px; } .cafe-item-16 { left: 56px; bottom: 29px; }
-.cafe-item-17 { right: 40px; bottom: -44px; } .cafe-item-18 { left: 48%; top: -58px; }
+.cafe-item.is-new { outline: 3px solid rgba(255,215,113,.8); outline-offset: 2px; }
+.cafe-item-1 { left: 5px; bottom: 1px; } .cafe-item-2 { left: 48px; bottom: 28px; }
+.cafe-item-3 { left: 94px; bottom: 28px; } .cafe-item-4 { right: 3px; bottom: -42px; }
+.cafe-item-5 { left: 5px; bottom: 50px; } .cafe-item-6 { left: 105px; top: 45px; }
+.cafe-item-7 { left: 67px; bottom: 72px; } .cafe-item-8 { left: -24px; bottom: -42px; }
+.cafe-item-9 { left: 50px; bottom: 1px; } .cafe-item-10 { left: 7px; top: 43px; }
+.cafe-item-11 { left: 98px; bottom: 72px; } .cafe-item-12 { right: 4px; top: 41px; }
+.cafe-item-13 { left: -17px; bottom: 20px; } .cafe-item-14 { right: -20px; top: -50px; }
+.cafe-item-15 { right: -13px; bottom: -42px; } .cafe-item-16 { left: 66px; bottom: 28px; }
+.cafe-item-17 { right: 37px; bottom: -43px; } .cafe-item-18 { left: 45%; top: -55px; }
 .cafe-level {
   position: absolute; left: 50%; bottom: 9px; z-index: 15; transform: translateX(-50%);
   min-width: 190px; padding: 5px 12px; border-radius: 999px; background: rgba(90,58,50,.9);
