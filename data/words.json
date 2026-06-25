@@ -1,0 +1,140 @@
+{
+  "words": [
+    {
+      "word": "espresso",
+      "hint": "Strong Italian coffee beverage"
+    },
+    {
+      "word": "cappuccino",
+      "hint": "Coffee with steamed milk and foam"
+    },
+    {
+      "word": "latte",
+      "hint": "Milk-based coffee drink"
+    },
+    {
+      "word": "macchiato",
+      "hint": "Espresso marked with milk"
+    },
+    {
+      "word": "americano",
+      "hint": "Espresso with hot water"
+    },
+    {
+      "word": "mocha",
+      "hint": "Coffee mixed with chocolate"
+    },
+    {
+      "word": "cortado",
+      "hint": "Equal parts espresso and steamed milk"
+    },
+    {
+      "word": "affogato",
+      "hint": "Ice cream drowned in hot espresso"
+    },
+    {
+      "word": "barista",
+      "hint": "Professional coffee maker"
+    },
+    {
+      "word": "croissant",
+      "hint": "Buttery French pastry"
+    },
+    {
+      "word": "biscotti",
+      "hint": "Twice-baked Italian cookie"
+    },
+    {
+      "word": "tiramisu",
+      "hint": "Italian dessert with mascarpone and espresso"
+    },
+    {
+      "word": "cheesecake",
+      "hint": "Creamy baked dessert"
+    },
+    {
+      "word": "scone",
+      "hint": "British baked good served with tea"
+    },
+    {
+      "word": "macaron",
+      "hint": "French almond meringue cookie"
+    },
+    {
+      "word": "muffin",
+      "hint": "Cake-like breakfast treat"
+    },
+    {
+      "word": "brownie",
+      "hint": "Chocolate baked square"
+    },
+    {
+      "word": "pastry",
+      "hint": "Baked dough creation"
+    },
+    {
+      "word": "donut",
+      "hint": "Round fried sweet treat"
+    },
+    { "word": "gelato", "hint": "Italian-style ice cream" },
+    { "word": "flatwhite", "hint": "Espresso drink with velvety microfoam" },
+    { "word": "coldbrew", "hint": "Coffee steeped slowly in cold water" },
+    { "word": "frappe", "hint": "Icy blended coffee drink" },
+    { "word": "ristretto", "hint": "A short, concentrated espresso shot" },
+    { "word": "lungo", "hint": "An espresso pulled with extra water" },
+    { "word": "breve", "hint": "Espresso made creamy with half-and-half" },
+    { "word": "chai", "hint": "Spiced tea often served with milk" },
+    { "word": "matcha", "hint": "Bright green powdered tea" },
+    { "word": "rooibos", "hint": "Naturally caffeine-free red herbal tea" },
+    { "word": "earlgrey", "hint": "Tea scented with bergamot" },
+    { "word": "lemonade", "hint": "Sweet and tart citrus cooler" },
+    { "word": "smoothie", "hint": "Thick blended fruit drink" },
+    { "word": "milkshake", "hint": "Cold creamy drink blended with ice cream" },
+    { "word": "horchata", "hint": "Sweet cinnamon rice drink" },
+    { "word": "kombucha", "hint": "Fizzy fermented tea" },
+    { "word": "eclair", "hint": "Long pastry filled with cream" },
+    { "word": "profiterole", "hint": "Small cream puff often covered in chocolate" },
+    { "word": "madeleine", "hint": "Small shell-shaped French sponge cake" },
+    { "word": "baklava", "hint": "Layered nut and honey pastry" },
+    { "word": "cannoli", "hint": "Crisp Italian tube filled with sweet cream" },
+    { "word": "cupcake", "hint": "Small frosted individual cake" },
+    { "word": "shortbread", "hint": "Crumbly, buttery cookie" },
+    { "word": "gingerbread", "hint": "Spiced baked treat with molasses" },
+    { "word": "snickerdoodle", "hint": "Soft cookie rolled in cinnamon sugar" },
+    { "word": "pavlova", "hint": "Crisp meringue dessert topped with fruit" },
+    { "word": "pannacotta", "hint": "Silky Italian set cream dessert" },
+    { "word": "cremebrulee", "hint": "Custard with a crackly caramelized top" },
+    { "word": "carrotcake", "hint": "Spiced cake often topped with cream cheese icing" },
+    { "word": "redvelvet", "hint": "Deep red cocoa cake with creamy frosting" },
+    { "word": "coffeecake", "hint": "Crumb-topped cake made to pair with coffee" },
+    { "word": "applepie", "hint": "Classic fruit pie flavored with cinnamon" },
+    { "word": "waffle", "hint": "Griddled breakfast treat with square pockets" },
+    { "word": "pancake", "hint": "Fluffy round breakfast cake" },
+    { "word": "crepe", "hint": "Very thin French pancake" },
+    { "word": "parfait", "hint": "Layered yogurt, fruit, and granola treat" },
+    { "word": "oatmeal", "hint": "Warm breakfast bowl made from oats" },
+    { "word": "granola", "hint": "Crunchy baked oats, nuts, and seeds" },
+    { "word": "bagel", "hint": "Ring-shaped bread often served toasted" },
+    { "word": "focaccia", "hint": "Dimpled Italian flatbread with olive oil" },
+    { "word": "panini", "hint": "Pressed and toasted Italian sandwich" },
+    { "word": "sandwich", "hint": "A filling served between slices of bread" },
+    { "word": "quesadilla", "hint": "Toasted tortilla filled with melted cheese" },
+    { "word": "bruschetta", "hint": "Toasted bread topped with tomato and herbs" },
+    { "word": "quiche", "hint": "Savory egg custard baked in a pastry crust" },
+    { "word": "omelette", "hint": "Folded egg dish with savory fillings" },
+    { "word": "shakshuka", "hint": "Eggs poached in a spiced tomato sauce" },
+    { "word": "avocadotoast", "hint": "Cafe favorite topped with creamy green fruit" },
+    { "word": "breakfastwrap", "hint": "Portable morning meal rolled in a tortilla" },
+    { "word": "caprese", "hint": "Tomato, mozzarella, and basil combination" },
+    { "word": "hummus", "hint": "Creamy chickpea dip" },
+    { "word": "falafel", "hint": "Crispy seasoned chickpea fritter" },
+    { "word": "soup", "hint": "Warm bowl often served with bread" },
+    { "word": "salad", "hint": "Fresh mixed greens and toppings" },
+    { "word": "pretzel", "hint": "Twisted baked snack sprinkled with salt" },
+    { "word": "cinnamonroll", "hint": "Spiraled pastry with cinnamon and icing" },
+    { "word": "danish", "hint": "Flaky pastry often filled with fruit or cheese" },
+    { "word": "turnover", "hint": "Folded pastry enclosing a sweet filling" },
+    { "word": "strudel", "hint": "Layered pastry rolled around a fruit filling" },
+    { "word": "teacake", "hint": "Small cake made for an afternoon cup" }
+  ]
+}

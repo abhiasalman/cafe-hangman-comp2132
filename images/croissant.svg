@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Croissant -->
+  <path d="M 50 100 Q 60 60 100 50 Q 140 60 150 100 Q 140 110 100 115 Q 60 110 50 100" fill="#d4957a" stroke="#8b6f47" stroke-width="2"/>
+
+  <!-- Croissant layers/texture -->
+  <path d="M 60 90 Q 75 70 100 65" fill="none" stroke="#8b6f47" stroke-width="1" opacity="0.5"/>
+  <path d="M 70 95 Q 85 75 105 70" fill="none" stroke="#8b6f47" stroke-width="1" opacity="0.5"/>
+  <path d="M 80 98 Q 95 80 110 75" fill="none" stroke="#8b6f47" stroke-width="1" opacity="0.5"/>
+
+  <!-- Butter shine -->
+  <ellipse cx="85" cy="80" rx="15" ry="10" fill="#f4d4c5" opacity="0.7"/>
+
+  <!-- Crumb detail -->
+  <circle cx="120" cy="95" r="2" fill="#8b6f47" opacity="0.5"/>
+  <circle cx="130" cy="100" r="1.5" fill="#8b6f47" opacity="0.5"/>
+</svg>

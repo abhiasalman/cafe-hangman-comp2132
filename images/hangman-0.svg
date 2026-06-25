@@ -1,0 +1,19 @@
+<svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="400" fill="#f4d4c5"/>
+
+  <!-- Hangman stand -->
+  <line x1="50" y1="350" x2="250" y2="350" stroke="#8b6f47" stroke-width="8"/>
+  <line x1="100" y1="350" x2="100" y2="50" stroke="#8b6f47" stroke-width="8"/>
+  <line x1="100" y1="50" x2="200" y2="50" stroke="#8b6f47" stroke-width="6"/>
+  <line x1="200" y1="50" x2="200" y2="100" stroke="#8b6f47" stroke-width="4"/>
+
+  <!-- Starting status -->
+  <rect x="125" y="165" width="105" height="70" rx="12" fill="#fef9f3" stroke="#d4957a" stroke-width="3"/>
+  <text x="177.5" y="193" font-family="Georgia, serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#5a3a32">
+    6 chances
+  </text>
+  <text x="177.5" y="217" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#d4957a">
+    Keep the cafe!
+  </text>
+</svg>
