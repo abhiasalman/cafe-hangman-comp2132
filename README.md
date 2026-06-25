@@ -1,4 +1,4 @@
-# ☕ Cafe Hangman Game
+# ☕️ Cafe Hangman Game
 
 A beautiful, responsive hangman game with a cafe theme built with vanilla JavaScript, HTML, SCSS, and SVG.
 
