@@ -7,12 +7,12 @@
 const MAX_INCORRECT_GUESSES = 6;
 const WORDS_JSON_PATH = './data/words.json';
 const CAFE_UPGRADES = [
-  { icon: '🪴', name: 'a leafy plant' },
-  { icon: '☕', name: 'an espresso cup' },
-  { icon: '🧁', name: 'a cupcake display' },
-  { icon: '🪑', name: 'a cozy chair' },
-  { icon: '🥐', name: 'a pastry basket' },
-  { icon: '💡', name: 'a warm lamp' },
+  { image: './images/plant.svg', icon: '🪴', name: 'a leafy plant' },
+  { image: './images/coffee-cup.svg', icon: '☕', name: 'an espresso cup' },
+  { image: './images/cupcake.svg', icon: '🧁', name: 'a cupcake display' },
+  { image: './images/cappuccino.svg', icon: '🪑', name: 'a cozy coffee table' },
+  { image: './images/croissant.svg', icon: '🥐', name: 'a pastry basket' },
+  { image: './images/donut.svg', icon: '🍩', name: 'a donut display' },
   { icon: '🍰', name: 'a cake stand' },
   { icon: '🌷', name: 'fresh flowers' },
   { icon: '🫖', name: 'a tea set' },
@@ -91,9 +91,8 @@ const Game = {
 
     // Update UI
     this.updateDisplay();
+    this.createLetterButtons();
     UI.hideGameOverModal();
-    UI.enableGuessInput();
-    this.updateCafeRisk();
     UI.updateGameMessage('Every correct letter adds something new to your cafe. Start guessing!');
     UI.updateCafe(this.cafeUpgrades);
     UI.updateMenu(this.menuItems, this.missedItems);
@@ -130,26 +129,19 @@ const Game = {
    * Make a guess with a letter
    */
   guessLetter: function(letter) {
-    const normalizedLetter = letter.trim().toUpperCase();
-
-    if (!/^[A-Z]$/.test(normalizedLetter)) {
-      UI.showInputError('Please enter one letter from A to Z.');
-      return;
-    }
+    const normalizedLetter = letter.toUpperCase();
 
     if (this.gameOver) {
       return;
     }
 
     if (this.guessedLetters.includes(normalizedLetter)) {
-      UI.showInputError(`You already guessed ${normalizedLetter}. Try a different letter.`);
       return;
     }
 
-    UI.clearInputError();
-
     // Add letter to guessed letters
     this.guessedLetters.push(normalizedLetter);
+    UI.disableLetterOption(normalizedLetter);
 
     // Check if letter is in word
     if (!this.currentWord.includes(normalizedLetter)) {
@@ -164,7 +156,6 @@ const Game = {
 
     // Update display
     this.updateDisplay();
-    this.updateCafeRisk();
 
     // Check win/loss conditions
     this.checkGameStatus();
@@ -187,7 +178,7 @@ const Game = {
   endGame: function(won) {
     this.gameOver = true;
     this.won = won;
-    UI.disableGuessInput();
+    UI.disableAllLetterButtons();
     const itemName = this.toTitleCase(this.currentWord);
 
     if (won) {
@@ -211,11 +202,22 @@ const Game = {
   },
 
   /**
-   * Tint the cafe scene as the player gets closer to losing
+   * Create clickable A-Z buttons for the current round
    */
-  updateCafeRisk: function() {
-    const riskLevel = Math.min(this.incorrectGuesses, MAX_INCORRECT_GUESSES);
-    UI.updateCafeRisk(riskLevel);
+  createLetterButtons: function() {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    UI.clearLetterButtons();
+
+    alphabet.split('').forEach(letter => {
+      const button = document.createElement('button');
+      button.className = 'letter-btn';
+      button.type = 'button';
+      button.textContent = letter;
+      button.dataset.letter = letter;
+      button.setAttribute('aria-label', `Guess ${letter}`);
+      button.addEventListener('click', () => this.guessLetter(letter));
+      UI.addLetterButton(button);
+    });
   }
 };
 
@@ -226,6 +228,7 @@ const UI = {
   wordDisplay: null,
   hintDisplay: null,
   incorrectCountDisplay: null,
+  lettersContainer: null,
   cafeItems: null,
   cafeLevel: null,
   upgradePop: null,
@@ -233,11 +236,6 @@ const UI = {
   gameMessage: null,
   menuItems: null,
   missedItems: null,
-  guessForm: null,
-  letterInput: null,
-  guessButton: null,
-  inputError: null,
-  hangmanImage: null,
   gameOverModal: null,
   playAgainBtn: null,
 
@@ -248,6 +246,7 @@ const UI = {
     this.wordDisplay = document.getElementById('word-display');
     this.hintDisplay = document.getElementById('hint-text');
     this.incorrectCountDisplay = document.getElementById('incorrect-count');
+    this.lettersContainer = document.getElementById('letters-container');
     this.cafeItems = document.getElementById('cafe-items');
     this.cafeLevel = document.getElementById('cafe-level');
     this.upgradePop = document.getElementById('upgrade-pop');
@@ -255,30 +254,11 @@ const UI = {
     this.gameMessage = document.getElementById('game-message');
     this.menuItems = document.getElementById('menu-items');
     this.missedItems = document.getElementById('missed-items');
-    this.guessForm = document.getElementById('guess-form');
-    this.letterInput = document.getElementById('letter-input');
-    this.guessButton = document.getElementById('guess-btn');
-    this.inputError = document.getElementById('input-error');
-    this.hangmanImage = document.getElementById('hangman-image');
     this.gameOverModal = document.getElementById('game-over-modal');
     this.playAgainBtn = document.getElementById('play-again-btn');
 
     // Event listeners
     this.playAgainBtn.addEventListener('click', () => Game.startNewGame());
-    this.guessForm.addEventListener('submit', event => {
-      event.preventDefault();
-      Game.guessLetter(this.letterInput.value);
-      this.letterInput.value = '';
-
-      if (!Game.gameOver) {
-        this.letterInput.focus();
-      }
-    });
-
-    this.letterInput.addEventListener('input', () => {
-      this.letterInput.value = this.letterInput.value.replace(/[^a-z]/gi, '').toUpperCase();
-      this.clearInputError();
-    });
   },
 
   /**
@@ -319,16 +299,6 @@ const UI = {
     this.incorrectCountDisplay.textContent = `${incorrect} / ${total}`;
   },
 
-  showInputError: function(message) {
-    this.inputError.textContent = message;
-    this.letterInput.classList.add('has-error');
-  },
-
-  clearInputError: function() {
-    this.inputError.textContent = '';
-    this.letterInput.classList.remove('has-error');
-  },
-
   updateGameMessage: function(message, type) {
     this.gameMessage.textContent = message;
     this.gameMessage.className = `game-message${type ? ` ${type}` : ''}`;
@@ -340,9 +310,19 @@ const UI = {
 
     for (let index = 0; index < visibleCount; index++) {
       const item = document.createElement('span');
+      const upgrade = CAFE_UPGRADES[index];
       item.className = `cafe-item cafe-item-${index + 1}`;
-      item.textContent = CAFE_UPGRADES[index].icon;
-      item.title = CAFE_UPGRADES[index].name;
+      item.title = upgrade.name;
+
+      if (upgrade.image) {
+        const image = document.createElement('img');
+        image.src = upgrade.image;
+        image.alt = upgrade.name;
+        item.appendChild(image);
+      } else {
+        item.textContent = upgrade.icon;
+      }
+
       this.cafeItems.appendChild(item);
     }
 
@@ -373,26 +353,28 @@ const UI = {
       : '';
   },
 
-  enableGuessInput: function() {
-    this.letterInput.disabled = false;
-    this.guessButton.disabled = false;
-    this.letterInput.value = '';
-    this.clearInputError();
-    this.letterInput.focus();
+  clearLetterButtons: function() {
+    this.lettersContainer.innerHTML = '';
   },
 
-  disableGuessInput: function() {
-    this.letterInput.disabled = true;
-    this.guessButton.disabled = true;
+  addLetterButton: function(button) {
+    this.lettersContainer.appendChild(button);
   },
 
-  /**
-   * Update the cafe's visual danger level
-   */
-  updateCafeRisk: function(stage) {
-    document.getElementById('cafe-builder').style.setProperty('--danger-level', stage);
-    this.hangmanImage.src = `./images/hangman-${stage}.svg`;
-    this.hangmanImage.alt = `Hangman stage ${stage} of ${MAX_INCORRECT_GUESSES}`;
+  disableLetterOption: function(letter) {
+    const button = this.lettersContainer.querySelector(`[data-letter="${letter}"]`);
+
+    if (button) {
+      button.disabled = true;
+      button.classList.add('guessed');
+    }
+  },
+
+  disableAllLetterButtons: function() {
+    const buttons = this.lettersContainer.querySelectorAll('.letter-btn');
+    buttons.forEach(button => {
+      button.disabled = true;
+    });
   },
 
   /**

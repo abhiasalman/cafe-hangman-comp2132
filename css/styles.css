@@ -61,25 +61,6 @@ body {
   gap: 1.5rem;
 }
 
-.hangman-image {
-  width: 100%;
-  max-width: 210px;
-  height: 210px;
-  border-radius: 15px;
-  background: linear-gradient(135deg, #e8b4d4 0%, #f4d4c5 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(90, 58, 50, 0.15);
-  border: 3px solid #d4957a;
-}
-.hangman-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
 .game-stats {
   width: 100%;
   background: linear-gradient(135deg, #f4d4c5, #fef9f3);
@@ -180,60 +161,6 @@ body {
   box-shadow: 0 0 0 3px rgba(232, 180, 212, 0.2);
 }
 
-.guess-form {
-  padding: 1rem;
-  border: 2px solid #d4957a;
-  border-radius: 12px;
-  background: #fffaf5;
-}
-.guess-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #5a3a32;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.05rem;
-  text-transform: uppercase;
-}
-
-.guess-controls {
-  display: flex;
-  gap: 0.65rem;
-}
-.guess-controls input {
-  min-width: 0;
-  flex: 1;
-  padding: 0.7rem;
-  border: 2px solid #d4957a;
-  border-radius: 8px;
-  color: #5a3a32;
-  font-size: 1.2rem;
-  font-weight: 800;
-  text-align: center;
-  text-transform: uppercase;
-}
-.guess-controls input:focus {
-  outline: none;
-  border-color: #9b5f49;
-  box-shadow: 0 0 0 3px rgba(212, 149, 122, 0.25);
-}
-.guess-controls input.has-error {
-  border-color: #d4786a;
-  background: #fff0ed;
-}
-.guess-controls input:disabled {
-  cursor: not-allowed;
-  opacity: 0.65;
-}
-
-.input-error {
-  min-height: 1.2rem;
-  padding-top: 0.35rem;
-  color: #b64d43;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
 .btn {
   border: none;
   border-radius: 8px;
@@ -274,6 +201,47 @@ body {
   background-color: #f4d4c5;
   color: #5a3a32;
   border: 2px solid #d4957a;
+}
+
+.letters-container {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.letter-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 0;
+  padding: 0.65rem 0.35rem;
+  background: #d4957a;
+  color: #fef9f3;
+  font-weight: 800;
+}
+.letter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.letter-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.letter-btn:hover:not(:disabled) {
+  background: #b9755a;
+}
+.letter-btn.guessed, .letter-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .modal {
@@ -356,13 +324,12 @@ body {
   .header h1 {
     font-size: 1.8rem;
   }
-  .hangman-image {
-    max-width: 250px;
-    height: 250px;
-  }
   .word-display .word {
     font-size: 1.8rem;
     letter-spacing: 0.3rem;
+  }
+  .letters-container {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 }
 @media (max-width: 480px) {
@@ -383,13 +350,13 @@ body {
   .modal-content h2 {
     font-size: 1.8rem;
   }
-  .guess-controls {
-    flex-direction: column;
+  .letters-container {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.35rem;
   }
 }
 /* Interactive Cafe Builder - kept in plain CSS syntax for easy compilation */
 .cafe-builder {
-  --danger-level: 0;
   position: relative;
   width: 100%;
   max-width: 320px;
@@ -400,16 +367,6 @@ body {
   background: linear-gradient(#a9ddea 0 48%, #f7dfb2 48% 100%);
   box-shadow: 0 10px 30px rgba(90, 58, 50, 0.18);
   isolation: isolate;
-}
-
-.cafe-builder::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 20;
-  pointer-events: none;
-  background: rgba(126, 47, 42, calc(var(--danger-level) * 0.025));
-  transition: background 0.3s ease;
 }
 
 .cafe-sky, .cafe-ground, .cafe-building, .cafe-items {
@@ -626,6 +583,11 @@ body {
   filter: drop-shadow(0 3px 2px rgba(90, 58, 50, 0.22));
   animation: itemArrive 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.35) both;
 }
+.cafe-item img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
 
 .cafe-item-1 {
   left: 8px;
@@ -731,34 +693,6 @@ body {
   text-align: center;
   font-size: 0.76rem;
   font-weight: 700;
-}
-
-.cafe-hangman-status {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 16;
-  width: 72px;
-  padding: 4px;
-  border: 2px solid #74483d;
-  border-radius: 8px;
-  background: rgba(255, 248, 233, 0.92);
-  box-shadow: 0 3px 7px rgba(90, 58, 50, 0.2);
-  text-align: center;
-}
-.cafe-hangman-status span {
-  display: block;
-  color: #74483d;
-  font-size: 0.58rem;
-  font-weight: 900;
-  letter-spacing: 0.06rem;
-  text-transform: uppercase;
-}
-.cafe-hangman-status img {
-  display: block;
-  width: 100%;
-  height: 76px;
-  object-fit: contain;
 }
 
 .upgrade-pop {
@@ -934,6 +868,10 @@ body {
   }
   .cafe-builder {
     height: 290px;
+  }
+  .letter-btn {
+    padding: 0.55rem 0.2rem;
+    font-size: 0.8rem;
   }
   .letter-slot {
     border-bottom-width: 3px;

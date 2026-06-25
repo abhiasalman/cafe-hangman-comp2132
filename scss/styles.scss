@@ -37,6 +37,15 @@ $spacing-unit: 1rem;
   }
 }
 
+@mixin letter-button($background-color) {
+  @include interactive-element;
+  min-width: 0;
+  padding: .65rem .35rem;
+  background: $background-color;
+  color: $light-color;
+  font-weight: 800;
+}
+
 // Reset and Base Styles
 * {
   margin: 0;
@@ -103,26 +112,6 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-}
-
-.hangman-image {
-  width: 100%;
-  max-width: 210px;
-  height: 210px;
-  border-radius: 15px;
-  background: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba($dark-color, 0.15);
-  border: 3px solid $primary-color;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
 }
 
 .game-stats {
@@ -235,65 +224,6 @@ body {
   }
 }
 
-.guess-form {
-  padding: 1rem;
-  border: 2px solid $primary-color;
-  border-radius: 12px;
-  background: #fffaf5;
-
-  label {
-    display: block;
-    margin-bottom: .5rem;
-    color: $dark-color;
-    font-size: .85rem;
-    font-weight: 800;
-    letter-spacing: .05rem;
-    text-transform: uppercase;
-  }
-}
-
-.guess-controls {
-  display: flex;
-  gap: .65rem;
-
-  input {
-    min-width: 0;
-    flex: 1;
-    padding: .7rem;
-    border: 2px solid $primary-color;
-    border-radius: 8px;
-    color: $dark-color;
-    font-size: 1.2rem;
-    font-weight: 800;
-    text-align: center;
-    text-transform: uppercase;
-
-    &:focus {
-      outline: none;
-      border-color: #9b5f49;
-      box-shadow: 0 0 0 3px rgba($primary-color, .25);
-    }
-
-    &.has-error {
-      border-color: $danger-color;
-      background: #fff0ed;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: .65;
-    }
-  }
-}
-
-.input-error {
-  min-height: 1.2rem;
-  padding-top: .35rem;
-  color: #b64d43;
-  font-size: .78rem;
-  font-weight: 700;
-}
-
 // Buttons
 .btn {
   @include interactive-element;
@@ -323,6 +253,29 @@ body {
     background-color: $secondary-color;
     color: $dark-color;
     border: 2px solid $primary-color;
+  }
+}
+
+.letters-container {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: .45rem;
+  margin-top: .5rem;
+}
+
+.letter-btn {
+  @include letter-button($primary-color);
+
+  &:hover:not(:disabled) {
+    background: #b9755a;
+  }
+
+  &.guessed,
+  &:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
 }
 
@@ -418,14 +371,13 @@ body {
     font-size: 1.8rem;
   }
 
-  .hangman-image {
-    max-width: 250px;
-    height: 250px;
-  }
-
   .word-display .word {
     font-size: 1.8rem;
     letter-spacing: 0.3rem;
+  }
+
+  .letters-container {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 
 }
@@ -453,14 +405,14 @@ body {
     font-size: 1.8rem;
   }
 
-  .guess-controls {
-    flex-direction: column;
+  .letters-container {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: .35rem;
   }
 }
 
 /* Interactive Cafe Builder - kept in plain CSS syntax for easy compilation */
 .cafe-builder {
-  --danger-level: 0;
   position: relative;
   width: 100%;
   max-width: 320px;
@@ -471,16 +423,6 @@ body {
   background: linear-gradient(#a9ddea 0 48%, #f7dfb2 48% 100%);
   box-shadow: 0 10px 30px rgba(90, 58, 50, 0.18);
   isolation: isolate;
-}
-
-.cafe-builder::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 20;
-  pointer-events: none;
-  background: rgba(126, 47, 42, calc(var(--danger-level) * 0.025));
-  transition: background 0.3s ease;
 }
 
 .cafe-sky, .cafe-ground, .cafe-building, .cafe-items { position: absolute; inset: 0; }
@@ -550,6 +492,12 @@ body {
   border-radius: 50%; background: rgba(255,248,233,.92); font-size: 22px;
   filter: drop-shadow(0 3px 2px rgba(90,58,50,.22));
   animation: itemArrive .55s cubic-bezier(.2,.9,.3,1.35) both;
+
+  img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
 }
 .cafe-item-1 { left: 8px; bottom: 2px; } .cafe-item-2 { left: 49px; bottom: 29px; }
 .cafe-item-3 { left: 89px; bottom: 29px; } .cafe-item-4 { right: 2px; bottom: -43px; }
@@ -566,35 +514,6 @@ body {
   color: #fff8e9; text-align: center; font-size: .76rem; font-weight: 700;
 }
 
-.cafe-hangman-status {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 16;
-  width: 72px;
-  padding: 4px;
-  border: 2px solid #74483d;
-  border-radius: 8px;
-  background: rgba(255, 248, 233, .92);
-  box-shadow: 0 3px 7px rgba(90, 58, 50, .2);
-  text-align: center;
-
-  span {
-    display: block;
-    color: #74483d;
-    font-size: .58rem;
-    font-weight: 900;
-    letter-spacing: .06rem;
-    text-transform: uppercase;
-  }
-
-  img {
-    display: block;
-    width: 100%;
-    height: 76px;
-    object-fit: contain;
-  }
-}
 .upgrade-pop {
   position: absolute; top: 52px; right: 20px; z-index: 30; opacity: 0; color: #5a3a32;
   font-size: 2rem; font-weight: 900; filter: drop-shadow(0 2px 0 #fff);
@@ -640,5 +559,6 @@ body {
   .container { padding: .75rem; border-width: 3px; }
   .game-content { gap: 1rem; }
   .cafe-builder { height: 290px; }
+  .letter-btn { padding: .55rem .2rem; font-size: .8rem; }
   .letter-slot { border-bottom-width: 3px; font-size: clamp(.7rem, 4.2vw, 1rem); }
 }

@@ -12,10 +12,10 @@ This is a COMP2132 project implementing a modern hangman game where players gues
 - **Responsive Layout**: Works perfectly on desktop, tablet, and mobile devices
 - **Random Word Selection**: Dynamically selects from a collection of 79 cafe drinks, desserts, pastries, and savory foods
 - **Helpful Hints**: Each word includes a descriptive hint to guide players
-- **Input-Based Guessing**: Players enter one letter at a time in the required input field
-- **Visual Hangman Progression**: A compact status graphic inside the cafe shows each incorrect guess
+- **Clickable Alphabet**: Players guess using responsive A–Z buttons
+- **Six-Guess Limit**: An incorrect counter tracks progress toward the loss condition
 - **Smooth Animations**: Fade-in effects on word updates and slide-in modal
-- **Duplicate Guess Protection**: Previously entered letters are rejected with a helpful message
+- **Disabled Used Letters**: Every selected letter is disabled for the rest of the round
 - **Game Over Modal**: Displays results with the correct word and play again option
 - **Cafe Builder**: Every correct letter adds a new animated item to the player's cafe
 - **Growing Menu**: Won words become cafe specials, while missed items are recorded as lost chances
@@ -45,6 +45,8 @@ Project1/
 │   ├── donut.svg       # Decorative image
 │   ├── croissant.svg   # Decorative image
 │   ├── cappuccino.svg  # Decorative image
+│   ├── plant.svg       # Cafe upgrade image
+│   ├── cupcake.svg     # Cafe upgrade image
 │   └── cafe-scene.svg  # Decorative image
 └── README.md           # This file
 ```
@@ -73,7 +75,6 @@ Manages all game logic and state:
 - `guessLetter(letter)` - Handles letter guessing logic
 - `checkGameStatus()` - Checks for win/loss conditions
 - `endGame(won)` - Handles game over state
-- `updateCafeRisk()` - Updates the hangman stage and cafe danger tint
 
 #### UI Object
 Manages all user interface updates:
@@ -81,7 +82,6 @@ Manages all user interface updates:
 - `updateWordDisplay(word)` - Updates guessed word display
 - `updateHint(hint)` - Updates hint text
 - `updateIncorrectCount()` - Updates incorrect guess counter
-- `updateCafeRisk()` - Loads the correct relative-path hangman image
 - `showGameOverModal()` - Displays game over screen
 - `hideGameOverModal()` - Hides game over screen
 
@@ -92,10 +92,10 @@ Manages all user interface updates:
 ## Game Rules
 
 1. **Start**: Game randomly selects a word and displays blank spaces
-2. **Guessing**: Enter one letter in the input field and submit it
+2. **Guessing**: Click one of the A–Z letter buttons
 3. **Correct Guess**: Guessed letters appear in their positions
-4. **Incorrect Guess**: Hangman figure progresses and incorrect count increases
-5. **Duplicate Protection**: A letter cannot be counted more than once in the same game
+4. **Incorrect Guess**: The incorrect counter increases toward the six-guess limit
+5. **Disabled Letters**: A selected letter cannot be clicked again during the same game
 6. **Win Condition**: Correctly guess all letters in the word
 7. **Lose Condition**: Make 6 incorrect guesses
 8. **Game Over**: Modal displays result and offers "Play Again" button
@@ -110,6 +110,7 @@ Manages all user interface updates:
   - Dark: #5a3a32 (dark brown text)
 
 - **Visual Elements**:
+  - Six cafe image assets appear as correct-letter rewards
   - Rounded corners on buttons and containers
   - Box shadows for depth
   - Smooth transitions on interactive elements
@@ -146,7 +147,7 @@ The project includes:
 - **Custom Functions**: 15+ functions for game logic and UI management
 - **Fetch API**: Loads words from JSON file via HTTP request
 - **DOM Manipulation**: Dynamically creates and updates all UI elements
-- **Event Listeners**: Form submission, input validation, and play-again handlers
+- **Event Listeners**: Alphabet button and play-again handlers
 
 ## Animations
 
@@ -164,6 +165,7 @@ The project includes:
 
 ### Mixins
 - `@mixin interactive-element` - Reusable button/element styling with hover and active states
+- `@mixin letter-button` - Reusable alphabet button styling
 
 ### Responsive
 - Mobile-first approach with media queries
