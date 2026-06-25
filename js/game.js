@@ -91,9 +91,7 @@ const Game = {
 
     // Update UI
     this.updateDisplay();
-    this.createLetterButtons();
     UI.hideGameOverModal();
-    UI.enableAllLetterButtons();
     UI.enableGuessInput();
     this.updateCafeRisk();
     UI.updateGameMessage('Every correct letter adds something new to your cafe. Start guessing!');
@@ -152,7 +150,6 @@ const Game = {
 
     // Add letter to guessed letters
     this.guessedLetters.push(normalizedLetter);
-    UI.disableLetterOption(normalizedLetter);
 
     // Check if letter is in word
     if (!this.currentWord.includes(normalizedLetter)) {
@@ -190,7 +187,6 @@ const Game = {
   endGame: function(won) {
     this.gameOver = true;
     this.won = won;
-    UI.disableAllLetterButtons();
     UI.disableGuessInput();
     const itemName = this.toTitleCase(this.currentWord);
 
@@ -220,32 +216,6 @@ const Game = {
   updateCafeRisk: function() {
     const riskLevel = Math.min(this.incorrectGuesses, MAX_INCORRECT_GUESSES);
     UI.updateCafeRisk(riskLevel);
-  },
-
-  /**
-   * Create letter buttons dynamically
-   */
-  createLetterButtons: function() {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    UI.clearLetterButtons();
-
-    alphabet.split('').forEach(letter => {
-      const button = document.createElement('button');
-      button.className = 'letter-btn';
-      button.textContent = letter;
-      button.dataset.letter = letter;
-
-      if (this.guessedLetters.includes(letter)) {
-        button.classList.add('guessed');
-        button.disabled = true;
-      }
-
-      button.addEventListener('click', () => {
-        this.guessLetter(letter);
-      });
-
-      UI.addLetterButton(button);
-    });
   }
 };
 
@@ -256,7 +226,6 @@ const UI = {
   wordDisplay: null,
   hintDisplay: null,
   incorrectCountDisplay: null,
-  lettersContainer: null,
   cafeItems: null,
   cafeLevel: null,
   upgradePop: null,
@@ -279,7 +248,6 @@ const UI = {
     this.wordDisplay = document.getElementById('word-display');
     this.hintDisplay = document.getElementById('hint-text');
     this.incorrectCountDisplay = document.getElementById('incorrect-count');
-    this.lettersContainer = document.getElementById('letters-container');
     this.cafeItems = document.getElementById('cafe-items');
     this.cafeLevel = document.getElementById('cafe-level');
     this.upgradePop = document.getElementById('upgrade-pop');
@@ -403,48 +371,6 @@ const UI = {
     this.missedItems.textContent = missedItems.length
       ? `Missed chances: ${missedItems.join(', ')}`
       : '';
-  },
-
-  /**
-   * Clear letter buttons
-   */
-  clearLetterButtons: function() {
-    this.lettersContainer.innerHTML = '';
-  },
-
-  /**
-   * Add letter button to container
-   */
-  addLetterButton: function(button) {
-    this.lettersContainer.appendChild(button);
-  },
-
-  /**
-   * Enable all letter buttons
-   */
-  enableAllLetterButtons: function() {
-    const buttons = this.lettersContainer.querySelectorAll('button');
-    buttons.forEach(btn => {
-      btn.disabled = false;
-      btn.classList.remove('guessed');
-    });
-  },
-
-  /**
-   * Disable all letter buttons
-   */
-  disableAllLetterButtons: function() {
-    const buttons = this.lettersContainer.querySelectorAll('button');
-    buttons.forEach(btn => btn.disabled = true);
-  },
-
-  disableLetterOption: function(letter) {
-    const button = this.lettersContainer.querySelector(`[data-letter="${letter}"]`);
-
-    if (button) {
-      button.disabled = true;
-      button.classList.add('guessed');
-    }
   },
 
   enableGuessInput: function() {

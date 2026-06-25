@@ -13,10 +13,9 @@ This is a COMP2132 project implementing a modern hangman game where players gues
 - **Random Word Selection**: Dynamically selects from a collection of 79 cafe drinks, desserts, pastries, and savory foods
 - **Helpful Hints**: Each word includes a descriptive hint to guide players
 - **Input-Based Guessing**: Players enter one letter at a time in the required input field
-- **Optional Letter Buttons**: On-screen A–Z controls provide a second convenient way to guess
-- **Visual Hangman Progression**: Shows hangman figure as incorrect guesses accumulate
+- **Visual Hangman Progression**: A compact status graphic inside the cafe shows each incorrect guess
 - **Smooth Animations**: Fade-in effects on word updates and slide-in modal
-- **Disabled Letters**: Prevents duplicate letter guesses
+- **Duplicate Guess Protection**: Previously entered letters are rejected with a helpful message
 - **Game Over Modal**: Displays results with the correct word and play again option
 - **Cafe Builder**: Every correct letter adds a new animated item to the player's cafe
 - **Growing Menu**: Won words become cafe specials, while missed items are recorded as lost chances
@@ -58,7 +57,7 @@ Project1/
 - Proper meta viewport for responsive design
 
 ### CSS/SCSS (`css/styles.css` and `scss/styles.scss`)
-- **SCSS Mixins**: `@mixin interactive-element` and `@mixin letter-button` for reusable styles
+- **SCSS Mixin**: `@mixin interactive-element` provides reusable button interaction styles
 - **Color Variables**: Cafe-themed palette (warm browns, soft pinks, creams)
 - **Responsive Design**: Media queries for tablets (768px) and mobile (480px)
 - **Animations**: Fade-in and slide-in effects for enhanced UX
@@ -82,7 +81,6 @@ Manages all user interface updates:
 - `updateWordDisplay(word)` - Updates guessed word display
 - `updateHint(hint)` - Updates hint text
 - `updateIncorrectCount()` - Updates incorrect guess counter
-- `disableLetterOption()` - Disables a guessed letter so it cannot be selected twice
 - `updateCafeRisk()` - Loads the correct relative-path hangman image
 - `showGameOverModal()` - Displays game over screen
 - `hideGameOverModal()` - Hides game over screen
@@ -94,10 +92,10 @@ Manages all user interface updates:
 ## Game Rules
 
 1. **Start**: Game randomly selects a word and displays blank spaces
-2. **Guessing**: Enter one letter in the input field and submit it, or use the optional letter buttons
+2. **Guessing**: Enter one letter in the input field and submit it
 3. **Correct Guess**: Guessed letters appear in their positions
 4. **Incorrect Guess**: Hangman figure progresses and incorrect count increases
-5. **Disabled Letters**: Once guessed, letters are disabled and visually marked
+5. **Duplicate Protection**: A letter cannot be counted more than once in the same game
 6. **Win Condition**: Correctly guess all letters in the word
 7. **Lose Condition**: Make 6 incorrect guesses
 8. **Game Over**: Modal displays result and offers "Play Again" button
@@ -148,7 +146,7 @@ The project includes:
 - **Custom Functions**: 15+ functions for game logic and UI management
 - **Fetch API**: Loads words from JSON file via HTTP request
 - **DOM Manipulation**: Dynamically creates and updates all UI elements
-- **Event Listeners**: Form submission, input validation, letter button, and play-again handlers
+- **Event Listeners**: Form submission, input validation, and play-again handlers
 
 ## Animations
 
@@ -166,7 +164,6 @@ The project includes:
 
 ### Mixins
 - `@mixin interactive-element` - Reusable button/element styling with hover and active states
-- `@mixin letter-button` - Specialized styling for letter buttons with disabled state
 
 ### Responsive
 - Mobile-first approach with media queries
